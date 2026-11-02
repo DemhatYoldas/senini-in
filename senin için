@@ -1,0 +1,199 @@
+[Efsun — Papatya Falı (Versiyon 2).html](https://github.com/user-attachments/files/34294068/Efsun.Papatya.Fali.Versiyon.2.html)
+# senini-in<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1030">
+<title>Efsun — Sana Bir Bahçe Kodladım</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#ffd77a;--rose:#ff9fbf;--serif:'Playfair Display',Georgia,'Times New Roman',serif;--hand:'Caveat','Segoe Script','Bradley Hand',cursive}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;max-width:100%;overflow-x:hidden}
+body{color:#fff;font-family:var(--serif);background:linear-gradient(180deg,#0b1030 0%,#251848 48%,#6a2c5c 82%,#c9667a 100%) fixed;min-height:100vh}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.moon{position:fixed;top:7%;right:9%;width:54px;height:54px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff8e0,#ffd77a);box-shadow:0 0 50px 14px rgba(255,215,122,.3);z-index:0}
+.intro{position:fixed;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;padding:28px;text-align:center;transition:opacity 1.2s,visibility 1.2s}
+.intro.out{opacity:0;visibility:hidden}
+.intro h2{margin:0;font-weight:400;font-style:italic;font-size:clamp(1.55rem,6.8vw,2.3rem);line-height:1.4;max-width:19em;animation:fade 2.2s .4s both}
+.intro .dot{font-family:var(--hand);font-size:1.6rem;color:var(--gold);animation:fade 2s both}
+.btn{font:italic 1.05rem/1 var(--serif);min-height:52px;padding:0 28px;border:0;border-radius:28px;color:#2a1438;background:linear-gradient(135deg,#ffe49a,#ffb3c9);cursor:pointer;touch-action:manipulation;box-shadow:0 6px 24px rgba(255,159,191,.35);transition:transform .2s}
+.btn:active{transform:scale(.96)}
+.intro .btn{animation:fade 2s 1.8s both}
+.scene{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:18px 16px calc(30px + env(safe-area-inset-bottom));opacity:0;visibility:hidden;transition:opacity 1.5s}
+.scene.on{opacity:1;visibility:visible}
+h1{margin:0;text-align:center;font:600 clamp(1.7rem,8vw,2.3rem)/1.15 var(--hand);color:var(--gold)}
+.hint{margin:6px 0 0;font-size:.95rem;font-style:italic;opacity:.8;text-align:center;min-height:1.4em}
+.fal{width:100%;max-width:340px;aspect-ratio:1;touch-action:manipulation;cursor:pointer;margin-top:6px}
+.fal svg{width:100%;height:100%;display:block;overflow:visible}
+.say{font:600 clamp(1.7rem,8vw,2.2rem)/1.2 var(--hand);height:1.3em;margin:0;text-align:center;color:var(--rose);transition:opacity .3s}
+.say.no{color:#c9c3ff}
+.meadow{width:100%;max-width:460px;margin-top:6px;touch-action:manipulation}
+.meadow svg{width:100%;display:block;overflow:hidden}
+.card{width:100%;max-width:460px;margin-top:14px;padding:22px 20px;border-radius:24px;background:rgba(18,10,40,.55);border:1px solid rgba(255,215,122,.3);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);text-align:center;font-size:1.1rem;line-height:1.65;font-style:italic;visibility:hidden}
+.card.show{visibility:visible}
+.card p{margin:0 0 .8em}.card p:last-child{margin:0}
+.card .l{opacity:0}.card.show .l{opacity:1;animation:up 1.2s calc(var(--i)*1s) backwards}
+.card .k{font:600 1.8rem var(--hand);color:var(--gold);font-style:normal}
+.card .f{color:var(--rose);font-size:1.2rem}
+.acts{display:flex;flex-direction:column;gap:12px;width:100%;max-width:460px;margin-top:16px;visibility:hidden}
+.acts.show{visibility:visible;animation:fade 1.4s backwards}
+.wish{min-height:3.6em;max-width:460px;margin:14px 0 0;text-align:center;font-style:italic;font-size:1.15rem;line-height:1.5;color:var(--gold)}
+.wish.pop{animation:up .9s both}
+.snd{position:fixed;top:calc(12px + env(safe-area-inset-top));left:12px;z-index:9;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,215,122,.5);background:rgba(18,10,40,.6);color:var(--gold);font-size:1.2rem;cursor:pointer;touch-action:manipulation}
+.snd.off{opacity:.6}
+/* papatya animasyonları */
+.stem{stroke-dasharray:1;animation:grow 1.6s var(--d) ease-out backwards}
+.pt{transform-box:fill-box;transform-origin:50% 100%;animation:pop .9s var(--d) cubic-bezier(.3,1.5,.5,1) backwards}
+.big .pt{transition:transform .9s ease-in,opacity .9s}
+.big .pt.gone{transform:translateY(-70px) rotate(35deg) scale(.7);opacity:0}
+.ct{transform-box:fill-box;transform-origin:center;animation:pop .9s var(--d) cubic-bezier(.3,1.6,.5,1) backwards}
+.sw{animation:sway 4.5s var(--s) ease-in-out infinite alternate}
+@keyframes grow{from{stroke-dashoffset:1}}
+@keyframes pop{from{transform:scale(0);opacity:0}}
+@keyframes sway{from{transform:rotate(-2.5deg)}to{transform:rotate(2.5deg)}}
+@keyframes fade{from{opacity:0}}
+@keyframes up{from{opacity:0;transform:translateY(12px)}}
+@media (min-width:900px){.fal{max-width:420px}.meadow{max-width:640px}.card{max-width:560px;font-size:1.25rem}.acts{flex-direction:row;max-width:560px}.acts .btn{flex:1}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+<canvas id="fx" aria-hidden="true"></canvas><div class="moon" aria-hidden="true"></div>
+<button class="snd off" id="snd" aria-label="Müziği aç / kapat">♪</button>
+
+<section class="intro" id="intro">
+ <div class="dot">Efsun için</div>
+ <h2>Yavrum, senin için küçük bir sürprizim var...</h2>
+ <button class="btn" id="open">Sürprizi aç ❤️</button>
+</section>
+
+<main class="scene" id="scene">
+ <h1>Efsun — Sana Bir Bahçe Kodladım ❤️</h1>
+ <p class="hint" id="hint">Papatyaya dokun, yapraklar sana fal baksın</p>
+ <div class="fal big" id="fal"><svg id="big" viewBox="-150 -150 300 300" role="img" aria-label="Fal papatyası"></svg></div>
+ <p class="say" id="say" aria-live="polite"></p>
+ <div class="meadow" id="meadow"><svg id="mead" viewBox="0 0 360 170" role="img" aria-label="Papatya çayırı"></svg></div>
+ <div class="card" id="msg">
+  <p class="l k" style="--i:0">Yavrum...</p>
+  <p class="l" style="--i:1">Kasım geldiğinde insanlar sevdiklerine çiçek alırmış.</p>
+  <p class="l" style="--i:2">Ben de sana en sevdiğin sarı ve beyaz papatyalardan küçük bir bahçe hazırlamak istedim.</p>
+  <p class="l" style="--i:3">Belki şu an yanında değilim. Aramızda kilometreler var ama bilmeni isterim ki aklımın en güzel yerinde hep sen varsın.</p>
+  <p class="l" style="--i:4">Her papatya bir gülüşün, her yaprak sana olan sevgim olsun.</p>
+  <p class="l f" style="--i:5">İyi ki varsın Efsun.</p>
+  <p class="l" style="--i:6">Seni özleyen birinden, sana küçük bir çiçek... ❤️</p>
+ </div>
+ <div class="acts" id="acts">
+  <button class="btn" id="again">Bir kez daha dokun yavrum</button>
+  <button class="btn" id="wishBtn">Sana bir dilek tut</button>
+ </div>
+ <p class="wish" id="wish" aria-live="polite"></p>
+</main>
+
+<script>
+(function(){
+'use strict';
+var $=function(s){return document.querySelector(s)},reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---- Papatya üretici (SVG, her yaprak ayrı) ---- */
+function daisy(o){ // x,y: baş; b: toprak y; r; t: 'y'|'w'; d: gecikme; n: yaprak
+ var h='',n=o.n,bend=o.bend||0;
+ if(o.b){h+='<g class="sw" style="transform-origin:'+o.x+'px '+o.b+'px;--s:'+(-Math.random()*4).toFixed(1)+'s"><path class="stem" pathLength="1" style="--d:'+o.d+'s" d="M'+o.x+' '+o.b+' Q'+(o.x+bend)+' '+((o.b+o.y)/2)+' '+o.x+' '+o.y+'" fill="none" stroke="#3fa96b" stroke-width="2.6" stroke-linecap="round"/>';}
+ h+='<g transform="translate('+o.x+' '+o.y+')">';
+ var bd=o.b?o.d+1.4:o.d;
+ for(var k=0;k<n;k++){
+  h+='<g transform="rotate('+(k*360/n).toFixed(1)+')"><ellipse class="pt" data-i="'+k+'" style="--d:'+(bd+k*.08).toFixed(2)+'s" cx="0" cy="'+(-o.r*.62).toFixed(1)+'" rx="'+(o.r*.17).toFixed(1)+'" ry="'+(o.r*.4).toFixed(1)+'" fill="'+(o.t==='y'?'#ffcf33':'#fffdf6')+'" stroke="'+(o.t==='y'?'#e59f00':'#e9d9e3')+'" stroke-width="'+(o.r>60?1.2:.6)+'"/></g>';
+ }
+ var cd=(bd+n*.08+.2).toFixed(2);
+ h+='<circle class="ct" style="--d:'+cd+'s" r="'+(o.r*.26).toFixed(1)+'" fill="'+(o.t==='y'?'#e8a000':'#ffd24d')+'"/><circle class="ct" style="--d:'+cd+'s" r="'+(o.r*.14).toFixed(1)+'" fill="#b97400" opacity=".5"/>';
+ h+='</g>'+(o.b?'</g>':'');
+ return h;
+}
+
+/* ---- Fal papatyası ---- */
+var big=$('#big'),petals=[],idx=0,N=13,busy=false;
+function buildBig(){
+ big.innerHTML=daisy({x:0,y:0,r:140,t:'w',d:.2,n:N});
+ petals=[].slice.call(big.querySelectorAll('.pt'));idx=0;
+ $('#say').textContent='';$('#hint').textContent='Papatyaya dokun, yapraklar sana fal baksın';
+}
+buildBig();
+function pluck(){
+ if(idx>=N||busy)return;
+ var el=petals[idx],r=el.getBoundingClientRect();
+ el.classList.add('gone');idx++;
+ for(var i=0;i<3;i++)spawn('p',r.left+r.width/2,r.top+r.height/2,true,true);
+ var s=$('#say'),yes=idx%2===1;
+ s.textContent=yes?'Seviyor ❤️':'Sevmiyor...';s.className='say'+(yes?'':' no');
+ if(idx===N){busy=true;
+  setTimeout(function(){s.textContent='Seviyor! Hem de çok ❤️';$('#hint').textContent='';burst();bloomMeadow()},900);
+ }
+}
+$('#fal').addEventListener('click',pluck);
+
+/* ---- Çayır ---- */
+var mead=$('#mead'),count=0;
+function plant(x,y,delay){
+ if(count>=40)return;count++;
+ var r=15+Math.random()*13,t=Math.random()<.5?'y':'w',n=10+((Math.random()*5)|0);
+ mead.insertAdjacentHTML('beforeend',daisy({x:x,y:y,b:168,r:r,t:t,d:delay,n:n,bend:(Math.random()-.5)*16}));
+}
+function bloomMeadow(){
+ var xs=[22,58,95,132,170,208,246,284,322,340,40,115,190,265],i;
+ mead.insertAdjacentHTML('afterbegin','<path d="M0 166 Q90 158 180 165 T360 163 V170 H0Z" fill="#1d1236"/>');
+ for(i=0;i<xs.length;i++)plant(xs[i]+(Math.random()*8-4),50+Math.random()*70,i*.25);
+ setTimeout(function(){$('#msg').classList.add('show');setTimeout(function(){$('#acts').classList.add('show');ambient=true},reduce?0:7400)},reduce?200:5200);
+}
+$('#meadow').addEventListener('click',function(e){
+ var b=mead.getBoundingClientRect();if(!b.width||!count)return;
+ var x=(e.clientX-b.left)/b.width*360,y=Math.max(35,Math.min(130,(e.clientY-b.top)/b.width*360));
+ plant(Math.max(18,Math.min(342,x)),y,0);spawn('h',e.clientX,e.clientY,true);
+});
+
+/* ---- Canvas: yıldız, ateş böceği, yaprak, kalp ---- */
+var cv=$('#fx'),cx=cv.getContext('2d'),W,H,D=Math.min(devicePixelRatio||1,1.5),st=[],ff=[],P=[],ambient=false,hid=false;
+function size(){W=innerWidth;H=innerHeight;cv.width=W*D;cv.height=H*D;cx.setTransform(D,0,0,D,0,0);
+ var i,n=W<500?50:100;st=[];ff=[];
+ for(i=0;i<n;i++)st.push({x:Math.random()*W,y:Math.random()*H*.7,r:Math.random()*1.1+.3,p:Math.random()*6.28,v:.6+Math.random()*1.4});
+ for(i=0;i<(W<500?14:24);i++)ff.push({x:Math.random()*W,y:H*.4+Math.random()*H*.6,p:Math.random()*6.28,v:.2+Math.random()*.3})}
+size();addEventListener('resize',size);
+document.addEventListener('visibilitychange',function(){hid=document.hidden;if(!hid)requestAnimationFrame(loop)});
+var CL=['#ffffff','#ffe9a8','#ffc2d6','#ffd77a'];
+function spawn(k,x,y,up,soft){var he=k==='h';
+ P.push({k:k,x:x,y:y,vx:up?(Math.random()-.5)*(soft?2:3):0,vy:up?-(soft?1+Math.random()*2:2+Math.random()*4.5):.5+Math.random()*.7,g:up?.06:0,s:he?7+Math.random()*9:6+Math.random()*6,r:Math.random()*6.28,vr:(Math.random()-.5)*.12,ph:Math.random()*6.28,c:he?(Math.random()<.5?'#ff6f9f':'#ffb0c8'):CL[(Math.random()*4)|0],a:1,sw:up?0:.5})}
+function burst(){var n=W<500?36:64;for(var i=0;i<n;i++)spawn(i%3?'p':'h',Math.random()*W,H+10,true)}
+function heart(s){cx.beginPath();cx.moveTo(0,s*.35);cx.bezierCurveTo(-s*1.1,-s*.3,-s*.5,-s,0,-s*.4);cx.bezierCurveTo(s*.5,-s,s*1.1,-s*.3,0,s*.35);cx.fill()}
+var amb=0;
+function loop(t){
+ if(hid)return;cx.clearRect(0,0,W,H);var i,o;cx.fillStyle='#fff';
+ for(i=0;i<st.length;i++){o=st[i];cx.globalAlpha=reduce?.7:.3+.7*Math.abs(Math.sin(t/1000*o.v+o.p));cx.beginPath();cx.arc(o.x,o.y,o.r,0,6.28);cx.fill()}
+ if(!reduce){cx.fillStyle='#ffe28a';
+  for(i=0;i<ff.length;i++){o=ff[i];o.y-=o.v;o.x+=Math.sin(t/1200+o.p)*.4;if(o.y<H*.3){o.y=H+5;o.x=Math.random()*W}
+   cx.globalAlpha=.2+.6*Math.pow(Math.sin(t/600+o.p),2);cx.beginPath();cx.arc(o.x,o.y,1.8,0,6.28);cx.fill()}
+  if(ambient&&t-amb>1500){amb=t;spawn('p',Math.random()*W,-10,false)}}
+ for(i=P.length-1;i>=0;i--){o=P[i];o.vy+=o.g;o.x+=o.vx+Math.sin(o.y/36+o.ph)*o.sw;o.y+=o.vy;o.r+=o.vr;if(o.g&&o.vy>0)o.a-=.012;
+  if(o.y>H+20||o.y<-40||o.a<=0){P.splice(i,1);continue}
+  cx.save();cx.translate(o.x,o.y);cx.rotate(o.r);cx.globalAlpha=Math.max(o.a,0)*.92;cx.fillStyle=o.c;
+  if(o.k==='h')heart(o.s);else{cx.beginPath();cx.ellipse(0,0,o.s*.38,o.s,0,0,6.28);cx.fill()}cx.restore()}
+ cx.globalAlpha=1;requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+
+/* ---- Müzik (isteğe bağlı) ---- */
+var ac,mt=null,sp=0,CH=[[262,330,392],[220,262,330],[175,220,262],[196,247,294]];
+function nt(f){var o=ac.createOscillator(),g=ac.createGain(),n=ac.currentTime;o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(0,n);g.gain.linearRampToValueAtTime(.045,n+.04);g.gain.exponentialRampToValueAtTime(.0001,n+1.8);o.connect(g);g.connect(ac.destination);o.start(n);o.stop(n+1.9)}
+$('#snd').addEventListener('click',function(){var b=this;try{
+ if(mt){clearInterval(mt);mt=null;b.classList.add('off');return}
+ ac=ac||new (window.AudioContext||window.webkitAudioContext)();ac.resume();
+ mt=setInterval(function(){var c=CH[((sp/6)|0)%4],m=sp%6;nt(c[m%3]*(m>2?2:1));sp++},620);b.classList.remove('off')}catch(e){}});
+
+/* ---- Akış ---- */
+var go=false;
+$('#open').addEventListener('click',function(){if(go)return;go=true;$('#intro').classList.add('out');$('#scene').classList.add('on')});
+$('#again').addEventListener('click',function(){burst();if(idx>=N){buildBig();busy=false;$('#say').textContent=''}});
+var WS=['Gülüşün, bu çayırdaki en güzel çiçek. Seni çok seviyorum Efsun ❤️','Dileğim: Kilometreler kısalsın, sarılacağımız gün çok yakın olsun.','Bir dilek tuttum: Her sabah aklına gelen ilk gülümseme ben olayım.','Aklımın en güzel yerinde hep sen varsın. Sakın unutma yavrum.','Dileğim şu: Kasım hep seninle sarı ve beyaz kalsın.'],wi=0;
+$('#wishBtn').addEventListener('click',function(){var w=$('#wish');w.classList.remove('pop');void w.offsetWidth;w.textContent=WS[wi++%WS.length];w.classList.add('pop');burst()});
+})();
+</script>
+</body>
+</html>
